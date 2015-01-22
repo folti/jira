@@ -658,6 +658,14 @@ class Version(Resource):
 
         super(Version, self).update(**data)
 
+class Group(Resource):
+
+    """"A JIRA group."""
+    def __init__(self, options, session, raw=None):
+        Resource.__init__(self, 'group?groupname={0}', options, session)
+        if raw:
+            self._parse_raw(raw)
+
 
 # GreenHopper
 
@@ -759,6 +767,7 @@ resource_class_map = {
     r'securitylevel/[^/]+$': SecurityLevel,
     r'status/[^/]+$': Status,
     r'user\?username.+$': User,
+    r'group\?groupname.+$': Group,
     r'version/[^/]+$': Version,
     # GreenHopper specific resources
     r'sprints/[^/]+$': Sprint,
