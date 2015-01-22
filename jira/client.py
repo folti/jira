@@ -247,6 +247,21 @@ class JIRA(object):
             if sys.version_info < (3, 4, 0):  # workaround for https://github.com/kennethreitz/requests/issues/2303
                 session.close()
 
+    def _check_server_version(self, major, minor=None, revision=None):
+        """ Check whether the server's version conforms to a minimal requierement """
+        if self._version[0] >= major:
+            if minor is not None:
+                if self._version[1] >= minor:
+                    if revision is None:
+                        return True
+            else:
+                return True
+            if minor is not None and revision is not None:
+                if self._version[2] >= revision:
+                    return True
+
+        return False
+
     def _check_for_html_error(self, content):
         # TODO: Make it return errors when content is a webpage with errors
         # JIRA has the bad habbit of returning errors in pages with 200 and
