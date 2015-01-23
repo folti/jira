@@ -1431,7 +1431,16 @@ class JIRA(object):
         """
         return self._find_for_resource(Role, (project, id))
 
-    # Resolutions
+    def add_user_to_project_role(self, username, project, role_id):
+        if not self._check_server_version(6, 1):
+            return False
+        data = {'user': [username]}
+        url = self._get_url('project/' + project + '/role/' + role_id)
+        r = self._session.post(url, headers = {'content-type': 'application/json'}, data=json.dumps(data))
+        raise_on_error(r)
+        return True
+
+# Resolutions
 
     def resolutions(self):
         """Get a list of resolution Resources from the server."""
