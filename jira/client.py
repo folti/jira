@@ -1435,9 +1435,14 @@ class JIRA(object):
         if not self._check_server_version(6, 1):
             return False
         data = {'user': [username]}
-        url = self._get_url('project/' + project + '/role/' + role_id)
+        url = self._get_url('project/' + project + '/role/%s'% role_id)
         r = self._session.post(url, headers = {'content-type': 'application/json'}, data=json.dumps(data))
-        raise_on_error(r)
+        if r.status_code in (500, 404):
+            response = json.loads(r.text)
+            if 'errorMessages' in response and len(response['errorMessages']) > 0:
+                for errmsg in response['errorMessages']:
+                    if errmsg.find('is already a member of the project role'):
+                        return True
         return True
 
 # Resolutions
