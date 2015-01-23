@@ -1423,9 +1423,8 @@ class JIRA(object):
 
     def project_roles_as_class(self, project):
         """
-
-        :param project:
-        :return:
+        Get a dict of project role instances.
+        :param project: ID or key of the project to get roles from.
         """
 
         urlstub = 'project/' + project + '/role'
@@ -1451,6 +1450,7 @@ class JIRA(object):
 
     def add_user_to_project_role(self, username, project, role_id):
         if not self._check_server_version(6, 1):
+            warnings.warn("Server don't support this REST call", Warning)
             return False
         data = {'user': [username]}
         url = self._get_url('project/' + project + '/role/%s'% role_id)
