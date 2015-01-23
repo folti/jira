@@ -1421,6 +1421,24 @@ class JIRA(object):
         """
         return self._get_json('project/' + project + '/role')
 
+    def project_roles_as_class(self, project):
+        """
+
+        :param project:
+        :return:
+        """
+
+        urlstub = 'project/' + project + '/role'
+        r_json = self._get_json(urlstub)
+        project_roles = []
+        for _, json_link in r_json.items():
+            roleid = re.sub('.*/role/', '', json_link)
+
+            raw_role_json = self._get_json(urlstub + "/" + roleid)
+
+            project_roles.append(Role(self._options, self._session, raw_role_json))
+        return project_roles
+
     @translate_resource_args
     def project_role(self, project, id):
         """
