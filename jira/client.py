@@ -115,7 +115,7 @@ class JIRA(object):
         "headers": {
             'X-Atlassian-Token': 'no-check',
             'Cache-Control': 'no-cache',
-            # 'Accept': 'application/json;charset=UTF-8',  # default for REST
+            'Accept': 'application/json;charset=UTF-8',  # default for REST
             'Content-Type': 'application/json',  # ;charset=UTF-8',
             # 'Accept': 'application/json',  # default for REST
 
