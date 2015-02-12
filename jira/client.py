@@ -626,6 +626,7 @@ class JIRA(object):
     def add_group(self, groupname):
         '''
         Creates a new group in JIRA.
+
         :param groupname: The name of the group you wish to create.
         :return: Boolean - True if succesfull.
         '''
@@ -648,6 +649,7 @@ class JIRA(object):
     def remove_group(self, groupname):
         '''
         Deletes a group from the JIRA instance.
+
         :param groupname: The group to be deleted from the JIRA instance.
         :return: Boolean. Returns True on success.
         '''
@@ -1424,6 +1426,7 @@ class JIRA(object):
     def project_roles_as_class(self, project):
         """
         Get a dict of project role instances.
+
         :param project: ID or key of the project to get roles from.
         """
 
@@ -2296,9 +2299,10 @@ class JIRA(object):
     def add_user_to_group(self, username, group):
         '''
         Adds a user to an existing group.
+
         :param username: Username that will be added to specified group.
         :param group: Group that the user will be added to.
-        :return: Boolean, True for success, false for failure.
+        :return: Boolean, True for success, exception for failure.
         '''
         url = self._options['server'] + '/rest/api/latest/group/user'
         x = {'groupname': group}
@@ -2313,9 +2317,10 @@ class JIRA(object):
     def remove_user_from_group(self, username, groupname):
         '''
         Removes a user from a group.
+
         :param username: The user to remove from the group.
         :param groupname: The group that the user will be removed from.
-        :return:
+        :return: Boolean, True for success. exception for failure
         '''
         url = self._options['server'] + '/rest/api/latest/group/user'
         x = {'groupname': groupname,
