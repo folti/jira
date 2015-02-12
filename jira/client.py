@@ -1421,7 +1421,6 @@ class JIRA(object):
                 for errmsg in response['errorMessages']:
                     if errmsg.find('is already a member of the project role'):
                         return True
-        raise_on_error(r)
         return True
 
 # Resolutions
